@@ -1,0 +1,444 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <link rel="stylesheet" href="style.css">
+    <title>Upravljanje klimom</title>
+</head>
+
+<body>
+    <div class="lijevi">
+        <div id="droptarget">
+            <div style="clear: both;"></div>
+            <div id="klima">
+                <img style="margin-left: -190px; margin-top: 5px;" width="170px" height="170px"
+                    src="slike/klima-OFF.png" id="klima_dnevni" />
+                <img style="margin-left: -190px; margin-top: 30px;" width="170px" height="120px"
+                    style="margin-top: 30px;" src="slike/klima-upaljena1.png" alt="klima upaljena" id="upaljena_1">
+                <img style="margin-top: 45px; margin-left: -250px;" width="320px" height="100px"
+                    src="slike/klima_hladenje.png" alt="klima hladenje" id="ukljuciHladenje_1">
+                <img style="margin-top: 45px; margin-left: -250px;" width="320px" height="100px"
+                    src="slike/klima_grijanje.png" alt="klima grijanje" id="ukljuciGrijanje_1">
+            </div>
+            <img src="slike/Man-09.png" width="100px" height="120px" id="osoba" />
+            <div id="senzorPokreta">
+                <img id="senzor" width="60px" height="60px" src="slike/senzor_pokreta.png" />
+                <p id="senzorPokretaTxt">Senzor pokreta</p>
+            </div>
+        </div>
+
+        <div class="container-people">
+            <h4
+                style="width: 100%; text-align: center; margin-left: auto; margin-right: auto; display: flex; font-family:  Times New Roman, Times, serif; font-weight: 600;">
+                <hr style="height: 3px; width: 315px; color: black; margin-right: 15px; background-color: black;">Senzor
+                pokreta
+                <hr style="height: 3px; width: 315px; color: black; margin-left: 15px; background-color: black;">
+            </h4>
+            <p style="width: 100%; padding-left: 20px; padding-top: 40px;" id="infoSensor"></p>
+            <img id="cekanje" style="margin-left: 295px; margin-top: -100px;" width="50px" height="50px"
+                src="slike/cekanje.gif">
+        </div>
+    </div>
+
+    <div class="desni">
+        <div class="wraper-temperatura">
+            <div class="temperatura">
+                <h2
+                    style="border-bottom: 2px solid black;padding-bottom: 10px; padding-left: 10px; font-family:  Times New Roman, Times, serif; font-weight: 500;">
+                    Temperatura <img width="35px" height="37px" src="slike/symbolTemp.png" /></h2>
+                <h4 id="optimalnaTemp">Optimalna temperatura: --- </h4>
+                <h4 style="padding-top: 10px; color: crimson;" id="trenutnaTemp" value="broj"> </h4>
+                <h4 style="width: 95px; margin-left: 250px; color: crimson;" id="tempFerenajd"> --- </h4>
+            </div>
+
+            <div class="promjeniOptimalnu">
+                <p
+                    style="font-size: 1.2em; font-weight: 700; text-align: center; padding-top: 10px; font-family: Georgia, serif;">
+                    Promjeni optimalnu temperaturu</p>
+                <button id="decrement" onclick="stepper(this)"> - </button>
+                <input type="number" min="0.00" max="30.00" value="22" step="0.5" id="broj" readonly>
+                <button id="increment" onclick="stepper(this)"> + </button>
+            </div>
+        </div>
+
+        <div class="line"></div>
+
+        <div id="kontrola-wrapper">
+
+            <h3 id="klimaTxt"></h3>
+            <div id="slika">
+                <img width="60%" height="100%" src="slike/klima-upaljena1.png" alt="klima upaljena" id="upaljena">
+                <img width="60%" height="100%" src="slike/klima-OFF.png" alt="klima ugasena" id="ugasena">
+                <img style="margin-top: 50px;" width="100%" height="50%" src="slike/klima_hladenje.png"
+                    alt="klima hladenje" id="ukljuciHladenje">
+                <img style="margin-top: 50px;" width="100%" height="50%" src="slike/klima_grijanje.png"
+                    alt="klima grijanje" id="ukljuciGrijanje">
+            </div>
+            <p id="napomena"> </p>
+
+            <button class="btn btn-success" id="upali" onclick="slanjePodataka(0)">Upali Klimu</button>
+            <button class="btn btn-danger" id="ugasi" onclick="slanjePodataka(1)">Ugasi Klimu</button>
+            <button class="btn btn-primary" id="ukljuci_hladenje" onclick="slanjePodataka(2)">Uključi hlađenje</button>
+            <button class="btn btn-danger" id="ukljuci_grijanje" onclick="slanjePodataka(3)">Uključi grijanje</button>
+
+            <!--<button class="btn btn-success" id="ukljuciLampicu" onclick="ukljuci(1)">Ukljuci lampicu</button>
+            <button class="btn btn-success" id="ukljuciLampicu" onclick="ukljuci(0)">Iskljuci lampicu</button>-->
+        </div>
+        <!--         <div>
+                    <button class="btn btn-info" id="podatak1" onclick="podaci(0)">Posalji 1</button>
+                    <button class="btn btn-light bg-primary" id="podatak2" onclick="podaci(1)">Posalji 2</button>
+                </div> -->
+    </div>
+
+    <!-- The core Firebase JS SDK is always required and must be listed first -->
+    <script src="https://www.gstatic.com/firebasejs/8.6.7/firebase.js"></script>
+
+    <!-- TODO: Add SDKs for Firebase products that you want to use
+      https://firebase.google.com/docs/web/setup#available-libraries -->
+    <script src="https://www.gstatic.com/firebasejs/8.6.7/firebase-analytics.js"></script>
+
+    <script>
+        // For Firebase JS SDK v7.20.0 and later, measurementId is optional
+        const firebaseConfig = {
+            apiKey: "AIzaSyAtWqhMOGj84h4CWOLya80ZE_aCmEqvX6Q",
+            authDomain: "upravljanje-klimom.firebaseapp.com",
+            databaseURL: "https://upravljanje-klimom-default-rtdb.firebaseio.com",
+            projectId: "upravljanje-klimom",
+            storageBucket: "upravljanje-klimom.appspot.com",
+            messagingSenderId: "617723074572",
+            appId: "1:617723074572:web:a54a88713db580dd13b629",
+            measurementId: "G-5FPVN59TMV"
+        };
+
+        // Initialize Firebase
+        firebase.initializeApp(firebaseConfig);
+        firebase.analytics();
+
+        var senzorPokreta = document.getElementById("senzor");
+        var senzorPokretaTxt = document.getElementById("senzorPokretaTxt");
+        var trenutnaTemp = document.getElementById("trenutnaTemp");
+        var optimalnaTemp = document.getElementById("optimalnaTemp");
+        var klima_dnevni = document.getElementById("klima_dnevni");
+        var senzorActive = document.getElementsByClassName("senzorActive");
+        var napomena = document.getElementById("napomena");
+        var slikaKlima = document.getElementById("slika");
+        var upaljena = document.getElementById("upaljena");
+        var upaljena_1 = document.getElementById("upaljena_1");
+        var ugasena = document.getElementById("ugasena");
+        var upali = document.getElementById("upali");
+        var ugasi = document.getElementById("ugasi");
+        var pirSensor = document.getElementById("pirSensor");
+        var tempFerenajd = document.getElementById("tempFerenajd");
+        var klimaTxt = document.getElementById("klimaTxt");
+        var senzor = document.getElementById("senzor");
+        var infoSensor = document.getElementById("infoSensor");
+        var osoba = document.getElementById("osoba");
+        var ukljuciHladenje = document.getElementById("ukljuciHladenje");
+        var ukljuciGrijanje = document.getElementById("ukljuciGrijanje");
+        var ukljuciHladenje_1 = document.getElementById("ukljuciHladenje_1");
+        var ukljuciGrijanje_1 = document.getElementById("ukljuciGrijanje_1");
+        var cekanje = document.getElementById("cekanje");
+
+
+        var btnUkljuci_hladenje = document.getElementById("ukljuci_hladenje");
+        var btnUkljuci_grijanje = document.getElementById("ukljuci_grijanje");
+        const myInput = document.getElementById("broj");
+
+        var dbOptimalnaTemp = firebase.database().ref().child('Temperatura/optimalna');
+        var dbTrenutnaTemp = firebase.database().ref().child('Temperatura/temperatureC');
+        var dbFerenajdTemp = firebase.database().ref().child('Temperatura/temperatureF');
+        var dbPirSensor = firebase.database().ref().child('PIR_Sensor/message');
+        var dbIsDetected = firebase.database().ref().child('PIR_Sensor/IsDetected');
+        var dbRefKomanda = firebase.database().ref().child('Klima/kontrola');
+
+        var temp = null;
+
+        osoba.style.display = "none";
+        btnUkljuci_grijanje.style.display = "none";
+        btnUkljuci_hladenje.style.display = "none";
+        upali.style.display = "none";
+        ugasi.style.display = "none";
+        ukljuciHladenje.style.display = "none";
+        ukljuciGrijanje.style.display = "none";
+        ukljuciHladenje_1.style.display = "none";
+        ukljuciGrijanje_1.style.display = "none";
+
+        function stepper(btn) {
+            let id = btn.getAttribute("id");
+            let min = myInput.getAttribute("min");
+            let max = myInput.getAttribute("max");
+            let step = myInput.getAttribute("step");
+            let val = myInput.getAttribute("value");
+            let clacStep = (id == "increment") ? (step * 1) : (step * -1);
+            let newValue = parseFloat(val) + clacStep;
+
+            if (newValue >= min && newValue <= max) {
+                myInput.setAttribute("value", Math.round(newValue * 100) / 100);
+                optimalnaTemp.innerHTML = "Optimalna temperatura: " + newValue + " °C";
+                promjeniOptimalnu(newValue);
+            }
+        }
+
+        //#region 
+        /*         firebase.database().ref('Temperatura').set({
+                    optimalna: 22
+                }, (error) => {
+                    if (error) {
+                        console.log("Greska u snimanju podataka!");
+                    } else {
+                        console.log("Optimalna temperatura uspjesno snimljena!");
+                    }
+                }); */
+        //#endregion
+
+        dbOptimalnaTemp.on('value', (podatak) => {
+            optimalnaTemp.innerHTML = "Optimalna temperatura: " + podatak.val() + " °C";
+        });
+
+        function promjeniOptimalnu(newValue) {
+            firebase.database().ref('Temperatura').set({
+                optimalna: newValue
+            }, (error) => {
+                if (error) {
+                    console.log("Greska u snimanju podataka!");
+                } else {
+                    console.log("Optimalna temperatura uspjesno snimljena!");
+                }
+            });
+        }
+
+        dbTrenutnaTemp.on('value', (podatak) => {
+            trenutnaTemp.innerHTML = "Trenutna temperatura: " + podatak.val() + " °C";
+        });
+
+        dbFerenajdTemp.on('value', (podatak) => {
+            tempFerenajd.innerHTML = podatak.val() + " °F";
+            tempFerenajd.style.borderTop = "2px double black";
+            tempFerenajd.style.paddingTop = "5px";
+        });
+
+        dbIsDetected.on('value', (podatak) => {
+            console.log(podatak.val());
+
+            if (podatak.val() == true) {
+
+                osoba.style.display = "block";
+                senzor.style.border = "2px solid red";
+                senzorPokretaTxt.innerHTML = "Activated...";
+                senzorPokretaTxt.style.color = "red";
+                infoSensor.innerHTML = "Osoba detektovana!";
+                infoSensor.style.color = "red";
+                cekanje.style.display = "none";
+
+                dbTrenutnaTemp.on('value', (trenutna) => {
+                    dbOptimalnaTemp.on('value', (optimalna) => {
+                        if (trenutna.val() > optimalna.val() && osoba.style.display === "block" && (ukljuciHladenje.style.display === "inline-block" || ukljuciGrijanje.style.display === "inline-block" || ugasena.style.display === "inline-block" || upaljena.style.display === "inline-block")) {
+                            setTimeout(() => {
+                                infoSensor.innerHTML = "Trenutna temperatura veca od optimalne --> Ukljuci hladenje";
+                                infoSensor.style.fontSize = "1.5em";
+                                infoSensor.style.color = "black";
+                                cekanje.style.display = "none";
+                            }, 1000);
+                        } else if (trenutna.val() < optimalna.val() && osoba.style.display === "block" && (ukljuciGrijanje.style.display === "inline-block" || ukljuciHladenje.style.display === "inline-block" || ugasena.style.display === "inline-block" || upaljena.style.display === "inline-block")) {
+                            setTimeout(() => {
+                                infoSensor.innerHTML = "Trenutna temperatura manja od optimalne --> Ukljuci grijanje";
+                                infoSensor.style.fontSize = "1.5em";
+                                infoSensor.style.color = "black";
+                                cekanje.style.display = "none";
+                            }, 1000);
+
+                        }
+                        else {
+                            infoSensor.innerHTML = "Vrijeme cekanja . . .";
+                            infoSensor.style.fontSize = "2em";
+                            infoSensor.style.color = "black";
+                            cekanje.style.display = "inline-block";
+                        }
+                    });
+                });
+
+            } else {
+                osoba.style.display = "none";
+                infoSensor.innerHTML = "Vrijeme cekanja . . .";
+                infoSensor.style.fontSize = "2em";
+                infoSensor.style.color = "black";
+                senzor.style.border = "1px solid black";
+                senzorPokretaTxt.innerHTML = "Senzor pokreta";
+                senzorPokretaTxt.style.color = "black";
+                cekanje.style.display = "inline-block";
+            }
+        });
+
+        dbRefKomanda.on('value', (kontrola) => {
+
+            console.log("Kontrola klime: " + kontrola.val());
+
+            if (kontrola.val() == 1) {
+                klimaTxt.innerHTML = "Procesiranje . . .";
+                klimaTxt.style.backgroundColor = "rgb(43, 255, 0)";
+                setTimeout(() => {
+                    klimaTxt.innerHTML = "Klima ugasena!";
+                    klimaTxt.style.backgroundColor = "white";
+                    slikaKlima.style.backgroundColor = "white";
+                    upaljena.style.display = "none";
+                    upaljena_1.style.display = "none";
+                    ugasi.style.display = "none";
+                    ukljuciGrijanje.style.display = "none";
+                    ukljuciHladenje.style.display = "none";
+                    ukljuciGrijanje_1.style.display = "none";
+                    ukljuciHladenje_1.style.display = "none";
+                    ugasena.style.display = "inline-block";
+                    klima_dnevni.style.display = "inline-block";
+                    ugasi.style.display = "none";
+                    optimalnaTemp.innerHTML = "Optimalna temperatura: -----";
+                    upali.style.display = "inline-block";
+
+                    ProvjeriTemp();
+                }, 3000);
+
+            } else if (kontrola.val() == 2) {
+                klimaTxt.innerHTML = "Procesiranje . . .";
+                klimaTxt.style.backgroundColor = "rgb(43, 255, 0)";
+                setTimeout(() => {
+                    klimaTxt.innerHTML = "Klima upaljena!";
+                    klimaTxt.style.backgroundColor = "white";
+                    slikaKlima.style.backgroundColor = "rgba(80, 188, 214, 0.3)";
+                    ugasena.style.display = "none";
+                    klima_dnevni.style.display = "none";
+                    upaljena_1.style.display = "none";
+                    upaljena.style.display = "none";
+                    upali.style.display = "none";
+                    ukljuciGrijanje.style.display = "none";
+                    ukljuciGrijanje_1.style.display = "none";
+                    ukljuciHladenje_1.style.display = "inline-block";
+                    ukljuciHladenje.style.display = "inline-block";
+                    ugasi.style.display = "inline-block";
+
+                    ProvjeriTemp();
+                }, 3000);
+
+                dbOptimalnaTemp.on('value', (podatak) => {
+                    optimalnaTemp.innerHTML = "Optimalna temperatura: " + podatak.val() + " °C";
+                });
+
+            }
+            else if (kontrola.val() == 3) {
+                klimaTxt.innerHTML = "Procesiranje . . .";
+                klimaTxt.style.backgroundColor = "rgb(43, 255, 0)";
+                setTimeout(() => {
+                    klimaTxt.innerHTML = "Klima upaljena!";
+                    klimaTxt.style.backgroundColor = "white";
+                    slikaKlima.style.backgroundColor = "rgba(244, 94, 171, 0.3)";
+                    ugasena.style.display = "none";
+                    upaljena.style.display = "none";
+                    upali.style.display = "none";
+                    klima_dnevni.style.display = "none";
+                    upaljena_1.style.display = "none";
+                    ukljuciHladenje.style.display = "none";
+                    ukljuciHladenje_1.style.display = "none";
+                    ukljuciGrijanje.style.display = "inline-block";
+                    ukljuciGrijanje_1.style.display = "inline-block";
+                    ugasi.style.display = "inline-block";
+
+                    ProvjeriTemp();
+                }, 3000);
+
+                dbOptimalnaTemp.on('value', (podatak) => {
+                    optimalnaTemp.innerHTML = "Optimalna temperatura: " + podatak.val() + " °C";
+                });
+
+            }
+            else {
+                klimaTxt.innerHTML = "Procesiranje . . .";
+                klimaTxt.style.backgroundColor = "rgb(43, 255, 0)";
+                setTimeout(() => {
+                    klimaTxt.innerHTML = "Klima upaljena!";
+                    klimaTxt.style.backgroundColor = "white";
+                    upaljena.style.display = "inline-block";
+                    ugasena.style.display = "none";
+                    klima_dnevni.style.display = "none";
+                    upaljena_1.style.display = "inline-block";
+                    upali.style.display = "none";
+                    ukljuciGrijanje.style.display = "none";
+                    ukljuciHladenje.style.display = "none";
+                    ukljuciGrijanje_1.style.display = "none";
+                    ukljuciHladenje_1.style.display = "none";
+                    ugasi.style.display = "inline-block";
+
+                    ProvjeriTemp();
+                }, 3000);
+
+
+                dbOptimalnaTemp.on('value', (podatak) => {
+                    optimalnaTemp.innerHTML = "Optimalna temperatura: " + podatak.val() + " °C";
+                });
+
+            }
+        });
+
+        function ProvjeriTemp() {
+            dbTrenutnaTemp.on('value', (trenutna) => {
+                dbOptimalnaTemp.on('value', (optimalna) => {
+                    if (trenutna.val() != optimalna.val() && upaljena.style.display === "inline-block") {
+                        napomena.innerHTML = "Trenutna != optimalna";
+                        napomena.style.fontSize = "1.5em";
+                        napomena.style.fontWeight = "bold";
+                        napomena.style.color = "black";
+                    } else if ((trenutna.val() < optimalna.val() || trenutna.val() > optimalna.val()) && ukljuciGrijanje.style.display === "inline-block") {
+                        napomena.innerHTML = "Grijanje prostorije";
+                        napomena.style.fontSize = "1.5em";
+                        napomena.style.fontWeight = "bold";
+                        napomena.style.color = "red";
+                    } else if ((trenutna.val() > optimalna.val() || trenutna.val() < optimalna.val()) && ukljuciHladenje.style.display === "inline-block") {
+                        napomena.innerHTML = "Hladenje prostorije";
+                        napomena.style.fontSize = "1.5em";
+                        napomena.style.fontWeight = "bold";
+                        napomena.style.color = "blue";
+                    } else if (ugasena.style.display === "inline-block") {
+                        napomena.innerHTML = " - - - - - - - ";
+                        napomena.style.fontSize = "2em";
+                        napomena.style.fontWeight = "bold";
+                        napomena.style.color = "black";
+                    }
+                    else if (trenutna.val() == optimalna.val()) {
+                        napomena.innerHTML = "Trenutna == optimalna";
+                        napomena.style.fontSize = "1.5em";
+                        napomena.style.fontWeight = "bold";
+                        napomena.style.color = "black";
+                    }
+                });
+            });
+        }
+
+        function slanjePodataka(kontrola) {
+            firebase.database().ref('Klima').set({
+                komanda: kontrola
+            }, (error) => {
+                if (error) {
+                    console.log("Greska u snimanju podataka!");
+                } else {
+                    console.log("Podaci uspjesno snimljeni!");
+                }
+            });
+        }
+
+        // function ukljuci(kontrola) {
+        //     firebase.database().ref('Lampica').set({
+        //         komanda: kontrola
+        //     }, (error) => {
+        //         if (error) {
+        //             console.log("Greska u snimanju podataka!");
+        //         } else {
+        //             console.log("Podaci uspjesno snimljeni!");
+        //         }
+        //     });
+        // }
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,283 @@
+html,
+body {
+    width: 100%;
+    height: 100%;
+    padding: 0;
+    margin: 0;
+    display: flex;
+   /*  background-color: rgba(255, 127, 80, 0.117); */
+    background-color: hsla(0, 100%, 50%, 0.1);
+}
+
+.lijevi {
+    width: 50%;
+    height: 100%;
+    /*background-color: rgba(255, 255, 255, 0.54);*/
+}
+
+.desni {
+    width: 47%;
+    height: 94%;
+    background-color: rgb(247, 247, 247);
+    padding: 20px;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 20px;
+    border: 1px solid black;
+    box-shadow: 5px 10px 18px #888888;
+}
+
+#droptarget {
+    display: flex;
+    float: left;
+    width: 90%;
+    height: 62%;
+    margin-left: 5%;
+    margin-top: 20px;
+    padding-top: 400px;
+    padding-left: 420px;
+    border: 1px solid black;
+    background-image: url('slike/dnevni_1.png');
+    background-repeat: no-repeat;
+    background-size: contain;
+    background-color: rgb(247, 247, 247);
+    box-shadow: 5px 10px 18px #888888;
+}
+
+.container-people {
+    width: 90%;
+    height: 26%;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 680px;
+    padding: 15px;
+    border: 1px solid black;
+    background-color: rgb(247, 247, 247);
+    box-shadow: 5px 10px 18px #888888;
+}
+
+#klima {
+    position: absolute;
+    width: 170px;
+    height: 120px;
+    margin-top: -420px;
+    margin-left: -200px;
+    /* border: 1px solid black; */
+    padding: 0;
+}
+
+#klima img:hover {
+    cursor: pointer;
+    width: 190px;
+    height: 170px;
+    transition: all .6s;
+}
+
+#senzorPokreta {
+    position: fixed;
+    width: 120px;
+    height: 85px;
+    margin-left: 300px;
+    margin-top: 95px;
+    /* border: 1px solid black; */
+}
+
+#senzorPokreta img:hover {
+    cursor: pointer;
+    opacity: 80%;
+    width: 80px;
+    height: 80px;
+    border: 3px solid red;
+    border-radius: 10px;
+    transition: all .6s;
+}
+
+#senzorPokreta,
+#senzorPokretaTxt {
+    font-size: 0.9em;
+    font-weight: 500;
+    text-align: center;
+}
+
+#wraper-senzor {
+    position: absolute;
+    width: 20%;
+    height: 18%;
+    background-color: aliceblue;
+    border: 1px solid black;
+    box-shadow: 5px 10px 18px rgba(0, 0, 255, 0.119);
+    margin-left: 440px;
+    margin-top: -165px;
+}
+
+.senzorActive {
+    width: 85%;
+    height: 25%;
+    border: 1px solid black;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 17px;
+    text-align: center;
+    padding: 10px;
+    background-color: rgba(0, 0, 0, 0.153);
+    font-weight: 500;
+}
+
+#demo {
+    padding: 20px;
+    width: 85%;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 13px;
+    border: 1px solid black;
+    color: blue;
+    border-radius: 20px;
+    background-color: rgba(0, 0, 255, 0.166);
+    font-family: Georgia, 'Times New Roman', Times, serif;
+    font-size: 1.7em;
+    font-weight: 500;
+}
+
+#slika {
+    width: 90%;
+    height: 50%;
+    border: 1px solid black;
+    margin-left: auto;
+    margin-right: auto;
+    background-color: white;
+}
+
+.line {
+    width: 98%;
+    border: 1px solid black;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 10px;
+    text-align: center;
+    box-shadow: 5px 10px 18px rgba(67, 67, 69, 0.862);
+}
+
+#kontrola-wrapper {
+    width: 75%;
+    height: 65%;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 40px;
+    padding: 20px;
+    text-align: center;
+    border: 1px solid black;
+    border-radius: 10px;
+    background-color: rgba(218, 218, 218, 0.832); 
+}
+
+#napomena {
+    height: 17%;
+    width: 90%;
+    text-align: center;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 20px;
+    padding: 15px;
+    background-color: white;
+    border: 1px solid black;
+}
+
+#klimaTxt {
+    width: 90%;
+    height: auto;
+    margin-left: auto;
+    margin-right: auto;
+    padding: 10px;
+    border-radius: 10px;
+    background-color: white;
+    border: 2px solid black;
+}
+
+.wraper-temperatura {
+    display: flex;
+    width: 100%;
+    height: 25%;
+    margin: 0;
+    padding: 0;
+   /*  background-color: rgba(43, 255, 0, 0.579);  */
+}
+
+.temperatura {
+    width: 50%;
+    padding: 10px;
+    /* background-color: red; */
+}
+
+.promjeniOptimalnu {
+    width: 40%;
+    height: 80%;
+    margin: auto;
+    padding: 10px;
+    text-align: center;
+    border: 1px solid black;
+    border-radius: 20px;
+    color: black;
+    background-color: rgba(218, 218, 218, 0.434); 
+}
+
+.promjeniOptimalnu:hover {
+    /* background-color: rgba(218, 218, 218); */
+    background-color: rgba(0, 0, 0, 0.827);
+    color: white;
+    transition: all .5s;
+    border: 2px solid ghostwhite;
+    border-radius: 10px;
+    padding: 5px;
+}
+
+input[type="number"] {
+    background-color: #ffffff;
+    width: 70px;
+    height: 50px;
+    text-align: center;
+    font-size: 1.5em;
+    font-weight: 400;
+    margin-left: -4px;
+    border: none;
+}
+
+#decrement {
+    background-color: #ffffff;
+    width: 50px;
+    height: 50px;
+    font-size: 1.5em;
+    text-align: center;
+    color: #3264fe;
+    font-weight: 500;
+    border: none;
+    border-radius: 30%;
+    border-radius: 45px 0 0 45px;
+}
+
+#decrement:hover {
+    background-color: #3264fe;
+    border-right: 1px solid black;
+    transition: all .5s;
+    color: white;
+}
+
+#increment {
+    background-color: #ffffff;
+    width: 50px;
+    height: 50px;
+    font-size: 1.5em;
+    text-align: center;
+    color: #3264fe;
+    font-weight: 500;
+    border: none;
+    border-radius: 30%;
+    margin-left: -4px;
+    border-radius: 0 45px 45px 0;
+}
+
+#increment:hover {
+    border-left: 1px solid black;
+    background-color: #3264fe;
+    transition: all .5s;
+    color: white;
+}
